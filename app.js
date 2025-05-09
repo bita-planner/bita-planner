@@ -1,40 +1,55 @@
 
-function saveBlocks() {
-    const blocks = [];
-    document.querySelectorAll('.block').forEach(block => {
-        blocks.push({
-            title: block.querySelector('.title').value,
-            category: block.querySelector('.category').value,
-            progress: block.querySelector('.progress-range').value
-        });
-    });
-    localStorage.setItem('studyBlocks', JSON.stringify(blocks));
+const planner = document.getElementById("planner");
+const dateDisplay = document.getElementById("dateDisplay");
+const today = new Date().toLocaleDateString();
+dateDisplay.innerText = "Today: " + today;
+
+const saveKey = "bitaPlanner_" + today;
+
+function createBlock(i, data) {
+  const div = document.createElement("div");
+  div.className = "block";
+
+  const start = document.createElement("input");
+  start.type = "time";
+  start.value = data?.start || "";
+
+  const end = document.createElement("input");
+  end.type = "time";
+  end.value = data?.end || "";
+
+  const title = document.createElement("input");
+  title.type = "text";
+  title.placeholder = "Study topic...";
+  title.value = data?.title || "";
+
+  start.oninput = end.oninput = title.oninput = () => saveData();
+
+  div.append("Block " + (i + 1) + ": ", start, " - ", end, title);
+  planner.appendChild(div);
 }
 
-function loadBlocks() {
-    const blocks = JSON.parse(localStorage.getItem('studyBlocks') || "[]");
-    const container = document.getElementById('blocks-container');
-    container.innerHTML = '';
-    blocks.forEach(data => addBlock(data));
+function saveData() {
+  const blocks = Array.from(document.querySelectorAll(".block")).map(block => {
+    const inputs = block.querySelectorAll("input");
+    return {
+      start: inputs[0].value,
+      end: inputs[1].value,
+      title: inputs[2].value,
+    };
+  });
+  localStorage.setItem(saveKey, JSON.stringify(blocks));
 }
 
-function addBlock(data = { title: "", category: "", progress: 0 }) {
-    const container = document.getElementById('blocks-container');
-    const block = document.createElement('div');
-    block.className = 'block';
-    block.innerHTML = `
-        <input type="text" class="title" placeholder="Block Title" value="${data.title}">
-        <select class="category">
-            <option value="">Select Category</option>
-            <option value="study" ${data.category === "study" ? "selected" : ""}>Study</option>
-            <option value="break" ${data.category === "break" ? "selected" : ""}>Break</option>
-            <option value="review" ${data.category === "review" ? "selected" : ""}>Review</option>
-        </select>
-        <input type="range" class="progress-range" value="${data.progress}" min="0" max="100" oninput="this.nextElementSibling.style.width=this.value + '%'">
-        <div class="progress-bar"><div class="progress" style="width:${data.progress}%"></div></div>
-    `;
-    container.appendChild(block);
-    block.querySelectorAll('input, select').forEach(el => el.addEventListener('change', saveBlocks));
+function clearAll() {
+  localStorage.removeItem(saveKey);
+  location.reload();
 }
 
-window.onload = loadBlocks;
+function loadPlanner() {
+  const saved = localStorage.getItem(saveKey);
+  const blocks = saved ? JSON.parse(saved) : Array(10).fill({});
+  blocks.forEach((data, i) => createBlock(i, data));
+}
+
+loadPlanner();

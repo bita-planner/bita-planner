@@ -1,37 +1,17 @@
+
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Bita Study Planner</title>
-  <meta name="theme-color" content="#F8E1F4">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bita Planner Daily</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Bita</h1>
-  <button id="start-btn">شروع برنامه</button>
-  <div class="timer" id="timer">--:--:--</div>
-  <div class="progress-container">
-    <div class="progress-bar" id="progress"></div>
-  </div>
-  <table id="schedule-table">
-    <thead>
-      <tr>
-        <th>ساعت شروع</th>
-        <th>ساعت پایان</th>
-        <th>فعالیت</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <audio id="notify-sound" src="ding-notification.mp3" preload="auto"></audio>
-  <script src="script.js"></script>
+  <h1>Bita Planner Daily</h1>
+  <div id="dateDisplay"></div>
+  <div id="planner"></div>
+  <button onclick="clearAll()">Clear All</button>
+  <script src="app.js"></script>
 </body>
 </html>
