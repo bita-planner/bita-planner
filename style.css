@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+  font-family: 'Dancing Script', cursive;
+  background: #F8E1F4;
+  color: #4A2C48;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+h1 {
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+#start-btn {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background: #E0B1D6;
+  border: none;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  color: #fff;
+  font-family: inherit;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+th, td {
+  padding: 8px 12px;
+  text-align: center;
+  border: 1px solid #E0B1D6;
+}
+th {
+  background: #EED2EC;
+}
+tr.active {
+  background: #F3C1E0;
+  font-weight: bold;
+}
+.timer {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.progress-container {
+  width: 100%;
+  max-width: 600px;
+  background: #EED2EC;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 20px;
+  margin-bottom: 30px;
+}
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: #D890BE;
+  transition: width 0.5s linear;
+}
